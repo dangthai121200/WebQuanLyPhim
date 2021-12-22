@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="manage_movie" name="model.Category" optimistic-lock="version" table="category">
+    <id name="idCategory" type="java.lang.Integer">
+      <column name="id_category"/>
+      <generator class="identity"/>
+    </id>
+    <property name="name" type="string">
+      <column length="40" name="name" not-null="true" unique="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="categoryMoives" table="category_moive">
+      <key>
+        <column name="id_category"/>
+      </key>
+      <one-to-many class="model.CategoryMoive"/>
+    </set>
+  </class>
+</hibernate-mapping>

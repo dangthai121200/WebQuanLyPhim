@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="manage_movie" name="model.MovieAdmin" optimistic-lock="version" table="movie_admin">
+    <id name="idMovieAdmin" type="java.lang.Integer">
+      <column name="id_movieAdmin"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Admin" fetch="select" name="admin">
+      <column name="id_admin"/>
+    </many-to-one>
+    <many-to-one class="model.Movie" fetch="select" name="movie">
+      <column name="id_movie"/>
+    </many-to-one>
+    <property name="dateAction" type="date">
+      <column length="10" name="dateAction"/>
+    </property>
+    <property name="title" type="string">
+      <column length="65535" name="title"/>
+    </property>
+  </class>
+</hibernate-mapping>

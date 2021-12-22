@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="manage_movie" name="model.Admin" optimistic-lock="version" table="admin">
+    <id name="idAdmin" type="java.lang.Integer">
+      <column name="id_admin"/>
+      <generator class="identity"/>
+    </id>
+    <property name="fullName" type="string">
+      <column length="30" name="fullName"/>
+    </property>
+    <property name="username" type="string">
+      <column length="30" name="username" unique="true"/>
+    </property>
+    <property name="password" type="string">
+      <column length="30" name="password"/>
+    </property>
+    <property name="birthday" type="date">
+      <column length="10" name="birthday"/>
+    </property>
+    <property name="gmail" type="string">
+      <column length="30" name="gmail"/>
+    </property>
+    <property name="sdt" type="java.lang.Integer">
+      <column name="sdt"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="movieAdmins" table="movie_admin">
+      <key>
+        <column name="id_admin"/>
+      </key>
+      <one-to-many class="model.MovieAdmin"/>
+    </set>
+  </class>
+</hibernate-mapping>
