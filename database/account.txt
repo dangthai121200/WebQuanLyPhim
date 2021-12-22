@@ -1,0 +1,10 @@
+admin 
+	baothai thai0913442325
+
+user
+	dainha
+	thinguyet
+	trungtien
+	vantoan
+
+	mật khẩu:123456789
