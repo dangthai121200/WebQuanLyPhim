@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="manage_movie" name="model.Movie" optimistic-lock="version" table="movie">
+    <id name="idMovie" type="java.lang.Integer">
+      <column name="id_movie"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Filmtype" fetch="select" name="filmtype">
+      <column name="id_filmType" not-null="true"/>
+    </many-to-one>
+    <property name="nameMovie" type="string">
+      <column length="100" name="nameMovie" not-null="true" unique="true"/>
+    </property>
+    <property name="country" type="string">
+      <column length="50" name="country"/>
+    </property>
+    <property name="director" type="string">
+      <column length="30" name="director"/>
+    </property>
+    <property name="timeMovie" type="time">
+      <column length="8" name="timeMovie"/>
+    </property>
+    <property name="statusMovie" type="string">
+      <column length="15" name="statusMovie"/>
+    </property>
+    <property name="urlimage" type="string">
+      <column length="65535" name="urlimage"/>
+    </property>
+    <property name="content" type="string">
+      <column length="65535" name="content"/>
+    </property>
+    <property name="yearOfManufacture" type="java.lang.Integer">
+      <column name="yearOfManufacture"/>
+    </property>
+    <property name="dateAdd" type="timestamp">
+      <column length="19" name="dateAdd"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="movieAdmins" table="movie_admin">
+      <key>
+        <column name="id_movie"/>
+      </key>
+      <one-to-many class="model.MovieAdmin"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="categoryMoives" table="category_moive">
+      <key>
+        <column name="id_movie"/>
+      </key>
+      <one-to-many class="model.CategoryMoive"/>
+    </set>
+  </class>
+</hibernate-mapping>

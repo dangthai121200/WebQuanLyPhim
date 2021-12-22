@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="manage_movie" name="model.Filmtype" optimistic-lock="version" table="filmtype">
+    <id name="idFilmType" type="java.lang.Integer">
+      <column name="id_filmType"/>
+      <generator class="identity"/>
+    </id>
+    <property name="name" type="string">
+      <column length="40" name="name" not-null="true" unique="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="movies" table="movie">
+      <key>
+        <column name="id_filmType" not-null="true"/>
+      </key>
+      <one-to-many class="model.Movie"/>
+    </set>
+  </class>
+</hibernate-mapping>
