@@ -7,7 +7,10 @@ package dao;
 
 import imp.IAction;
 import java.util.List;
+import java.util.Set;
+import model.Category;
 import model.CategoryMoive;
+import model.Movie;
 import org.hibernate.Session;
 
 /**
@@ -48,5 +51,13 @@ public class DaoCategoryMovie implements IAction<CategoryMoive> {
         session.save(object);
         session.getTransaction().commit();
     }
-
+    public void addLsitCategoryMovie(Set listCategoryMovie, Movie movie) {
+        session.beginTransaction();
+        for (int i = 0; i < listCategoryMovie.size(); i++) {
+            Category category = (Category) listCategoryMovie.toArray()[i];
+            session.save(new CategoryMoive(category, movie));
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
 }

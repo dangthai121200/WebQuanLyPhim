@@ -134,7 +134,7 @@ public class ControllerMovie extends HttpServlet {
         int idFilmtype = Integer.MAX_VALUE;
         //láy value input từ form có sử dụng multipart/form-data     
         try {
-            String nameImage = StringUtils.stripAccents(nameMovie).replaceAll(" ", "");
+            String nameImage = StringUtils.stripAccents(nameMovie).replaceAll(" ", "").toLowerCase();
             List<FileItem> items = upload.parseRequest(request);
             for (FileItem item : items) {
                 String name = item.getFieldName();
@@ -181,38 +181,51 @@ public class ControllerMovie extends HttpServlet {
                         break;
                 }
             }
+
             //Lấy thể loai và loại phim
-            Filmtype filmType = new ServiceFilmType().findById(idFilmtype);
-            Set categoysSet = new ServiceCategory().getAllByListId(categorys);
-            //tính thời gian cho phim đổi ra tiếng
+//            //tính thời gian cho phim đổi ra tiếng
             int minute = timeMovie;
             int hours = minute / 60;
             minute = minute % 60;
             Date time = new Date();
             time.setHours(hours);
             time.setMinutes(minute);
+//
+//            //Tạo đối tượng movie và lưu movie
+  Filmtype filmType = new ServiceFilmType().findById(idFilmtype);
+            Movie movie = null;
 
-            //Tạo đối tượng movie và lưu movie
-            Movie movie = new Movie(filmType, WordUtils.capitalizeFully(nameMovie), WordUtils.capitalizeFully(country), WordUtils.capitalizeFully(diretor), time, status, "/image/" + result, content, Integer.parseInt(yearOfManufacture), new Date());
-            Admin admin = (Admin) request.getSession(true).getAttribute("admin");
-            ServicelMovie serviceAdd = new ServicelMovie();
-            serviceAdd.add(movie);
+            try {
+              
+                movie = new Movie(filmType, WordUtils.capitalizeFully(nameMovie), WordUtils.capitalizeFully(country), WordUtils.capitalizeFully(diretor), time, status, "/image/" + result, content, Integer.parseInt(yearOfManufacture), new Date());
+                ServicelMovie serviceMovie = new ServicelMovie();
+                serviceMovie.add(movie);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            try {
+                //Luu thông tin lien quan toi phim
+                List<Movie> afterListMovie = new ServicelMovie().findByName(movie.getNameMovie(), true);
+                Movie movieAfterAdd = afterListMovie.size() > 0 ? afterListMovie.get(0) : null;
+                response.getWriter().println("after" + movieAfterAdd + "<br/>");
 
-            //Luu thông tin truy van
-//            Movie movieAfterAdd = new ServicelMovie().findByName(movie.getNameMovie(), true).get(0);
-//            for (int i = 0; i < categoysSet.size(); i++) {
-//                Category category = (Category) categoysSet.toArray()[i];
-//                new ServiceCategoryMovie().add(new CategoryMoive(category, movieAfterAdd));
-//            }
-//            new ServiceMovieAdmin().add(new MovieAdmin(admin, movieAfterAdd, new Date(), "Thêm phim " + movie.getNameMovie()));
+                Set categoysSet = new ServiceCategory().getAllByListId(categorys);
+                response.getWriter().println(categoysSet + "<br/>");
+                ServiceCategoryMovie serviceCategoryMovie = new ServiceCategoryMovie();
+                serviceCategoryMovie.addLsitCategoryMovie(categoysSet, afterListMovie.get(0));
+
+                //Luu thông tin tác vụ
+                ServiceMovieAdmin serviceMovieAdmin = new ServiceMovieAdmin();
+                Admin admin = (Admin) request.getSession(true).getAttribute("admin");
+                serviceMovieAdmin.add(new MovieAdmin(admin,movieAfterAdd, new Date(), "Thêm phim"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
             response.sendRedirect(request.getContextPath() + "/ControllerPage?page=home");
-
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            
         }
-
     }
 
     @Override

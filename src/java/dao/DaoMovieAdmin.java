@@ -8,6 +8,10 @@ package dao;
 import model.MovieAdmin;
 import imp.IAction;
 import java.util.List;
+import java.util.Set;
+import model.Category;
+import model.CategoryMoive;
+import model.Movie;
 import org.hibernate.Session;
 import util.HibernateMovie;
 
@@ -51,6 +55,7 @@ public class DaoMovieAdmin implements IAction<MovieAdmin>  {
      session.getTransaction().commit();
      session.close();
     }
+    
 
 //    public static void main(String[] args) {
 //        List<MovieAdmin>list=new DaoMovieAdmin(HibernateMovie.openSession()).getAll();

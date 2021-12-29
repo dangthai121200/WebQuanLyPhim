@@ -8,7 +8,9 @@ package service;
 import dao.DaoCategoryMovie;
 import imp.IAction;
 import java.util.List;
+import java.util.Set;
 import model.CategoryMoive;
+import model.Movie;
 import util.HibernateMovie;
 
 /**
@@ -22,7 +24,9 @@ public class ServiceCategoryMovie implements IAction<CategoryMoive>{
     public ServiceCategoryMovie() {
         daoCategoryMovie=new DaoCategoryMovie(HibernateMovie.openSession());
     }
-    
+    public void addLsitCategoryMovie(Set listCategoryMovie, Movie movie) {
+        daoCategoryMovie.addLsitCategoryMovie(listCategoryMovie, movie);
+    }
     @Override
     public List<CategoryMoive> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
