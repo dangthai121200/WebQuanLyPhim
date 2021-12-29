@@ -25,7 +25,6 @@ import model.CategoryMoive;
 import model.Filmtype;
 import model.Movie;
 import model.MovieAdmin;
-import org.apache.commons.lang3.text.WordUtils;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemIterator;
@@ -35,6 +34,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
+
 import org.hibernate.Session;
 
 import service.ServiceCategory;
@@ -209,8 +210,9 @@ public class ControllerMovie extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
+            
         }
+
     }
 
     @Override

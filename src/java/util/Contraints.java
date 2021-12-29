@@ -12,5 +12,5 @@ import org.apache.commons.lang3.StringUtils;
  * @author gaone
  */
 public class Contraints {
-   public static String locationSaveImageMoive="D:\\School\\nam4\\DoAnChuyenNganh\\Web_Manager_Movie\\web\\image\\";
+   public static String locationSaveImageMoive="C:\\Users\\AlarShere\\OneDrive\\Máy tính\\WebQuanLyPhim\\web\\image";
 }
